@@ -1,0 +1,152 @@
+name: Template Validation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate template structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify required files exist
+        run: |
+          set -euo pipefail
+
+          required_files=(
+            "README.md"
+            "CONTRIBUTING.md"
+            "SECURITY.md"
+            "LICENSE"
+            ".editorconfig"
+            ".gitattributes"
+            ".gitignore"
+            ".github/pull_request_template.md"
+            ".github/dependabot.yml"
+            ".github/workflows/template-validation.yml"
+            ".github/ISSUE_TEMPLATE/bug_report.md"
+            ".github/ISSUE_TEMPLATE/feature_request.md"
+            ".github/ISSUE_TEMPLATE/config.yml"
+            "docs/README.md"
+          )
+
+          missing=0
+          for file in "${required_files[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              echo "Missing required file: $file"
+              missing=1
+            fi
+          done
+
+          if [[ "$missing" -ne 0 ]]; then
+            exit 1
+          fi
+
+          echo "All required files are present."
+
+      - name: Validate YAML syntax
+        run: |
+          set -euo pipefail
+
+          yaml_files=(
+            ".github/dependabot.yml"
+            ".github/workflows/template-validation.yml"
+            ".github/ISSUE_TEMPLATE/config.yml"
+          )
+
+          for file in "${yaml_files[@]}"; do
+            echo "Validating YAML: $file"
+            ruby -ryaml -e "YAML.load_file('$file')"
+          done
+
+          echo "All YAML files parsed successfully."
+
+      - name: Check for obvious secret patterns
+        run: |
+          set -euo pipefail
+
+          patterns=(
+            'BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY'
+            'AKIA[0-9A-Z]{16}'
+            'ghp_[A-Za-z0-9]{36}'
+            'gho_[A-Za-z0-9]{36}'
+            'github_pat_[A-Za-z0-9_]{22,}'
+            'xox[baprs]-[A-Za-z0-9-]{10,}'
+          )
+
+          found=0
+          for pattern in "${patterns[@]}"; do
+            if grep -rE --exclude-dir=.git "$pattern" . >/dev/null 2>&1; then
+              echo "Potential secret pattern detected matching: $pattern"
+              grep -rE --exclude-dir=.git -n "$pattern" . || true
+              found=1
+            fi
+          done
+
+          if [[ "$found" -ne 0 ]]; then
+            exit 1
+          fi
+
+          echo "No obvious secret patterns detected."
+
+      - name: Basic Markdown validation
+        run: |
+          set -euo pipefail
+
+          markdown_files=(
+            "README.md"
+            "CONTRIBUTING.md"
+            "SECURITY.md"
+            "docs/README.md"
+            ".github/pull_request_template.md"
+            ".github/ISSUE_TEMPLATE/bug_report.md"
+            ".github/ISSUE_TEMPLATE/feature_request.md"
+          )
+
+          for file in "${markdown_files[@]}"; do
+            if [[ ! -s "$file" ]]; then
+              echo "Markdown file is empty: $file"
+              exit 1
+            fi
+          done
+
+          if ! grep -q '^#' README.md; then
+            echo "README.md should contain at least one Markdown heading."
+            exit 1
+          fi
+
+          echo "Basic Markdown checks passed."
+
+      - name: Verify .gitignore covers sensitive env files
+        run: |
+          set -euo pipefail
+
+          gitignore_must_contain=(
+            '.env'
+            '.env.local'
+          )
+
+          for pattern in "${gitignore_must_contain[@]}"; do
+            if ! grep -qF "$pattern" .gitignore; then
+              echo ".gitignore missing required pattern: $pattern"
+              exit 1
+            fi
+          done
+
+          if grep -qE '^\.env\.example$' .gitignore; then
+            echo ".gitignore should not ignore .env.example"
+            exit 1
+          fi
+
+          echo ".gitignore sensitive-file checks passed."
