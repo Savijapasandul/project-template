@@ -1,67 +1,13 @@
-# Security Policy
+# Security policy
 
-## Supported Versions
+## Reporting
 
-Security support depends on how maintainers choose to version and support the project after adopting this template. Update this section with your release and support policy once your project has defined versions.
+Do not report vulnerabilities or sensitive reproduction details in public issues. Use **Security → Report a vulnerability** if private vulnerability reporting is enabled. If unavailable, use a private contact published by the maintainer; no private contact is configured by this template. Maintainers must enable private reporting or publish a monitored private channel before accepting sensitive reports.
 
-## Reporting a Vulnerability
+Include affected versions or commits, impact, reproduction steps, and a suggested fix if available. Redact credentials and personal data. Coordinate disclosure with the maintainer; this template promises no response deadline or release support window.
 
-**Do not report security vulnerabilities through public GitHub issues.**
+## Maintainer setup
 
-If you discover a security issue, report it privately to the repository maintainers. Configure a security contact in your GitHub repository settings (Settings → Security → Code security and analysis → Private vulnerability reporting) and reference that contact here once it is set up.
+Define supported releases and a response policy when the project has releases. Review available secret scanning, dependency alerts, and branch protection settings. Require only checks that actually exist. Keep permissions minimal and review dependencies before adopting them.
 
-Include as much detail as possible:
-
-- Description of the vulnerability
-- Steps to reproduce
-- Potential impact
-- Suggested fix (if any)
-
-Maintainers will acknowledge receipt and work with you on a responsible disclosure timeline.
-
-## Security Expectations for Contributors
-
-All contributors must follow these practices:
-
-### Do not commit secrets
-
-- API keys, tokens, and passwords
-- Private keys and certificates (`.pem`, `.key`, etc.)
-- Database connection strings with credentials
-- Cloud provider access keys
-- Local environment files (`.env`, `.env.local`)
-
-Use environment variables or a secrets manager. Provide `.env.example` with non-sensitive placeholders only.
-
-### Do not expose credentials in issues or pull requests
-
-- Never paste secrets into GitHub issues, PR comments, or commit messages
-- Redact sensitive information from logs and screenshots
-- Rotate any credential that was accidentally exposed
-
-### Keep dependencies updated
-
-- Review Dependabot and security advisories regularly
-- Apply security patches promptly
-- Audit new dependencies before adding them
-
-### Follow secure development practices
-
-- Validate and sanitize input
-- Use least-privilege access for services and credentials
-- Enable GitHub secret scanning and branch protection where appropriate
-
-## Security Configuration Recommendations
-
-After creating a project from this template, consider enabling:
-
-- GitHub Dependabot alerts
-- Secret scanning (if available for your repository)
-- Branch protection on the default branch
-- Required status checks for CI
-- Private vulnerability reporting
-
-## Additional Resources
-
-- [GitHub Security Best Practices](https://docs.github.com/en/code-security/getting-started/github-security-features)
-- [OWASP Top Ten](https://owasp.org/www-project-top-ten/)
+Never commit credentials, private keys, or real environment values. Example configuration must use harmless placeholders. Ignore rules do not protect already tracked files or every secret format. If a credential is exposed, revoke or rotate it promptly, then assess cleanup and impact.

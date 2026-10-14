@@ -1,32 +1,24 @@
 ## Summary
 
-<!-- Brief overview of this pull request -->
+<!-- Purpose and resulting behavior. -->
 
-## What Changed
+## Related issues
 
-<!-- List the main changes -->
+<!-- Link issues if applicable. -->
 
-## Why
+## Changes made
 
-<!-- Motivation and context for these changes -->
+## Testing performed
 
-## Testing Performed
+<!-- Actual commands/manual checks and results; explain checks not run. -->
 
-<!-- How you verified the changes (manual steps, automated tests, etc.) -->
+## Potential risks
 
-## Potential Risks
+<!-- Compatibility, security, migration, or operational risks; write none if appropriate. -->
 
-<!-- Known risks, edge cases, or areas that need extra review -->
+## Reviewer checklist
 
-## Breaking Changes
-
-<!-- List breaking changes, or write "None" -->
-
-None
-
-## Checklist
-
-- [ ] Changes are focused and scoped to this PR
-- [ ] Documentation updated (if applicable)
-- [ ] No secrets, credentials, or sensitive data committed
-- [ ] CI checks pass (or will pass after merge prerequisites are met)
+- [ ] Scope and behavior are clear.
+- [ ] Relevant validation evidence is provided.
+- [ ] Documentation is updated where needed.
+- [ ] No secrets or unnecessary dependencies/configuration are introduced.

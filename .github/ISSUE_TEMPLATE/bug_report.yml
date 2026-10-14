@@ -1,14 +1,7 @@
 name: Bug Report
-about: Report a bug or unexpected behaviour
+description: Report a bug or unexpected behaviour
 title: "[Bug]: "
-labels: bug
-assignees: []
 body:
-  - type: markdown
-    attributions: []
-    value: |
-      Thanks for taking the time to report a bug. Please provide as much detail as possible to help us reproduce and fix the issue.
-
   - type: textarea
     id: description
     attributes:

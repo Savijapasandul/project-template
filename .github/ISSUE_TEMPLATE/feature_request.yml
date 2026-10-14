@@ -1,14 +1,7 @@
 name: Feature Request
-about: Suggest a new feature or enhancement
+description: Suggest a new feature or enhancement
 title: "[Feature]: "
-labels: enhancement
-assignees: []
 body:
-  - type: markdown
-    attributions: []
-    value: |
-      Thanks for suggesting an improvement. Describe the problem and your proposed solution below.
-
   - type: textarea
     id: problem
     attributes:
