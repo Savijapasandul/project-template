@@ -5,3 +5,5 @@
 - [Contribution guide](../CONTRIBUTING.md): collaboration and local validation.
 
 Replace this index with useful project documentation after initialization.
+
+- [Actions setup](AUTOMATION.md): opt in to manual automation.

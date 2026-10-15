@@ -1,0 +1,33 @@
+name: Manual repository check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: manual-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    if: ${{ vars.ENABLE_ACTIONS == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Fetch selected commit and check whitespace
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          COMMIT: ${{ github.sha }}
+          SERVER: ${{ github.server_url }}
+        run: |
+          set -eu
+          git init .
+          git remote add origin "$SERVER/$REPOSITORY.git"
+          auth=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
+          git -c "http.extraheader=AUTHORIZATION: basic $auth" fetch --depth=1 origin "$COMMIT"
+          unset auth GH_TOKEN
+          git checkout --detach FETCH_HEAD
+          git show --check --format= HEAD

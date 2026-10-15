@@ -7,7 +7,7 @@
 5. Add precise ignore rules for generated output and local secrets. Check representative source and asset paths remain tracked. Adjust editor rules to match your tools.
 6. Document configuration using harmless placeholders. Never put real credentials in examples, screenshots, logs, or commits.
 7. Introduce meaningful tests and document exact local commands and prerequisites in the contribution guide. Do not require nonexistent checks.
-8. Add CI/CD only when useful. Start with local checks or a manual workflow; choose automatic triggers, permissions, concurrency, and budgets deliberately. Deploy only after selecting a target and configuring secrets securely.
+8. Keep automation off until needed. Follow [Actions setup](AUTOMATION.md) to enable the included manual check. Add project-specific tests or exports only after choosing tools; select automatic triggers and budgets deliberately.
 9. Add Dependabot configuration only after dependency manifests or action dependencies exist. Select actual ecosystems and directories, and a suitable update cadence. There is no default scheduled updater.
 10. Replace architecture notes with real decisions, reset the changelog, and remove this guide and other template-specific text once setup is complete. Repair links after removing files.
 

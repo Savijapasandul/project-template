@@ -1,8 +1,8 @@
 # Project Template
 
-A minimal, technology-neutral starting point for software repositories. Use it when you need documentation, contribution guidance, and GitHub issue forms before choosing implementation tools.
+A minimal, technology-neutral starting point for projects. Use it when you need documentation, contribution guidance, and GitHub issue forms before choosing implementation tools.
 
-It can support applications for web, desktop, mobile, and embedded platforms; APIs, libraries, SDKs, CLI tools, AI and data projects, scientific computing, infrastructure, monorepos, and prototypes. No language, framework, runtime, package manager, or hosting provider is required.
+It can support applications for web, desktop, mobile, and embedded platforms; APIs, libraries, SDKs, CLI tools, AI and data projects, scientific computing, infrastructure, monorepos, hardware/PCB design, Blender/3D assets, documentation, and prototypes. No language, framework, runtime, package manager, or hosting provider is required.
 
 ## Create a project
 
@@ -16,13 +16,13 @@ Follow [Getting started](docs/GETTING_STARTED.md):
 - [ ] Select tools based on project needs; add source and dependency manifests only when needed.
 - [ ] Track appropriate dependency lockfiles; extend Git and editor rules with precise project-specific patterns.
 - [ ] Document local setup, configuration placeholders, and actual test commands.
-- [ ] Add CI or deployment only when needed, with deliberate triggers and a minutes budget.
+- [ ] Read [Actions setup](docs/AUTOMATION.md) before enabling the optional manual check.
 - [ ] Adapt issue forms, contribution guidance, agent instructions, and architecture notes.
 - [ ] Remove template setup instructions and reset the changelog for your project.
 
 ## Defaults
 
-The repository includes Git/editor settings, bug and feature forms, a pull request template, and concise documentation. Blank issues remain available for questions and other requests. No application scaffolding, dependencies, Actions workflows, or scheduled dependency updates are included.
+The repository includes Git/editor settings, bug and feature forms, a pull request template, and concise documentation. Blank issues remain available for questions and other requests. No application scaffolding, dependencies, or scheduled dependency updates are included. A guarded, manual Actions workflow is available; automation is off by default.
 
 The two-space editor default is adjustable; Makefiles use tabs. Git normalizes text to LF, with CRLF for Windows command scripts. Ignore rules stay narrow to avoid hiding source or assets; they are not a secret scanner.
 
